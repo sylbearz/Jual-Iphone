@@ -1,0 +1,777 @@
+```html
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iPurStore - Jual Beli iPhone & Handphone</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            900: '#14532d',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Sembunyikan scrollbar tapi tetap bisa scroll */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .modal-active {
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 antialiased flex flex-col min-h-screen">
+
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="#" class="flex items-center gap-2">
+                        <i class="fab fa-apple text-brand-600 text-3xl mb-1"></i>
+                        <span class="font-bold text-xl tracking-tight text-gray-900">iPur<span class="text-brand-600">Store</span></span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#etalase" class="text-gray-600 hover:text-brand-600 transition font-medium">Etalase</a>
+                    <a href="#tambah-produk" class="text-gray-600 hover:text-brand-600 transition font-medium">Tambah Produk</a>
+                    <a href="#lokasi" class="text-gray-600 hover:text-brand-600 transition font-medium">Lokasi & Info</a>
+                    <a href="https://wa.me/6287815133828" target="_blank" class="bg-brand-600 hover:bg-brand-700 text-white px-4 py-2 rounded-lg font-medium transition flex items-center gap-2">
+                        <i class="fab fa-whatsapp"></i> Hubungi Kami
+                    </a>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="flex items-center md:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-gray-900 focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#etalase" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-brand-600 hover:bg-gray-50">Etalase</a>
+                <a href="#tambah-produk" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-brand-600 hover:bg-gray-50">Tambah Produk</a>
+                <a href="#lokasi" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-brand-600 hover:bg-gray-50">Lokasi & Info</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="bg-gray-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-10 md:mb-0">
+                <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-4">
+                    Temukan iPhone Impianmu di <span class="text-brand-500">iPurStore</span>
+                </h1>
+                <p class="text-gray-300 text-lg mb-8">
+                    Jual beli berbagai seri iPhone baru dan bekas dengan kondisi terbaik. Melayani pembayaran Cash dan Kredit dengan proses yang mudah dan cepat.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#etalase" class="bg-brand-600 hover:bg-brand-500 text-white text-center font-semibold py-3 px-6 rounded-lg transition shadow-lg">
+                        Lihat Etalase
+                    </a>
+                    <a href="#lokasi" class="bg-white hover:bg-gray-100 text-gray-900 text-center font-semibold py-3 px-6 rounded-lg transition">
+                        Kunjungi Toko
+                    </a>
+                </div>
+            </div>
+            <div class="md:w-1/2 flex justify-center">
+                <!-- Placeholder Image for Hero -->
+                <img src="https://placehold.co/600x400/22c55e/ffffff?text=iPurStore+Apple" alt="Toko iPhone" class="rounded-xl shadow-2xl transform md:rotate-2">
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <section id="etalase" class="py-16 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">Etalase IP</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto">Pilih dari berbagai koleksi IP terbaik kami. Klik tombol Pesan untuk melihat simulasi angsuran dan detail pemesanan.</p>
+                </div>
+                
+                <!-- Grid Produk (Diisi oleh JavaScript) -->
+                <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                    <!-- Produk akan dirender di sini -->
+                </div>
+            </div>
+        </section>
+
+        <section id="tambah-produk" class="py-16 bg-white border-t border-gray-200">
+            <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">Menu Tambah Produk</h2>
+                    <p class="text-gray-600">Gunakan form ini untuk menambahkan stok handphone baru ke etalase Anda.</p>
+                </div>
+                
+                <form id="add-product-form" class="bg-gray-50 p-8 rounded-xl shadow-sm border border-gray-100">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Merk / Model</label>
+                            <input type="text" id="p-name" required placeholder="Contoh: iPhone 15 Pro Max" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-brand-500 focus:border-brand-500 outline-none transition">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Harga (Rp)</label>
+                            <input type="number" id="p-price" required placeholder="Contoh: 24500000" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-brand-500 focus:border-brand-500 outline-none transition">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Kondisi</label>
+                            <select id="p-condition" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-brand-500 focus:border-brand-500 outline-none transition">
+                                <option value="Baru">Baru</option>
+                                <option value="Bekas (Mulus)">Bekas (Mulus)</option>
+                                <option value="Bekas (Lecet Pemakaian)">Bekas (Lecet Pemakaian)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Penyimpanan / Spesifikasi</label>
+                            <input type="text" id="p-specs" required placeholder="Contoh: 256GB, Inter, Natural Titanium" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-brand-500 focus:border-brand-500 outline-none transition">
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">URL Gambar (Opsional)</label>
+                        <input type="url" id="p-image" placeholder="https://contoh.com/gambar-iphone.jpg" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-brand-500 focus:border-brand-500 outline-none transition">
+                        <p class="text-xs text-gray-500 mt-1">Jika dikosongkan, akan menggunakan gambar placeholder.</p>
+                    </div>
+                    <button type="submit" class="w-full bg-gray-900 hover:bg-gray-800 text-white font-bold py-3 px-4 rounded-lg transition duration-200">
+                        Tambahkan Produk ke Etalase
+                    </button>
+                    <!-- Notifikasi sukses -->
+                    <div id="add-success-msg" class="hidden mt-4 p-3 bg-green-100 text-green-700 rounded-lg text-sm text-center">
+                        <i class="fas fa-check-circle mr-2"></i> Produk berhasil ditambahkan!
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <section id="lokasi" class="py-16 bg-gray-900 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <div>
+                        <h2 class="text-3xl font-bold mb-6 text-brand-400">Informasi Toko</h2>
+                        <div class="space-y-4 text-gray-300">
+                            <p class="flex items-start gap-3">
+                                <i class="fas fa-map-marker-alt mt-1 text-brand-500"></i>
+                                <span>
+                                    <strong class="text-white block mb-1">Alamat Toko:</strong>
+                                    Jl. Haji Zaenal Mustofa No. 26<br>
+                                    (Kunjungi kami langsung untuk melihat unit)
+                                </span>
+                            </p>
+                            <p class="flex items-center gap-3">
+                                <i class="fab fa-whatsapp text-brand-500"></i>
+                                <span>
+                                    <strong class="text-white">WhatsApp / Telepon:</strong><br>
+                                    0878-1513-3828
+                                </span>
+                            </p>
+                            <p class="flex items-center gap-3">
+                                <i class="fas fa-clock text-brand-500"></i>
+                                <span>
+                                    <strong class="text-white">Jam Buka:</strong><br>
+                                    Setiap Hari: 07.00 - 18.00 WIB
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-bold mb-6 text-brand-400">Metode Pembayaran</h2>
+                        <p class="text-gray-300 mb-6">Kami menerima pembayaran secara Cash maupun Angsuran. Pembayaran dapat dilakukan langsung di dealer atau melalui transfer bank resmi kami berikut:</p>
+                        
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-gray-800 p-4 rounded-lg border border-gray-700 flex flex-col justify-center items-center">
+                                <span class="font-bold text-xl text-blue-500 mb-1">BCA</span>
+                                <span class="text-sm text-gray-400">Bank Central Asia</span>
+                            </div>
+                            <div class="bg-gray-800 p-4 rounded-lg border border-gray-700 flex flex-col justify-center items-center">
+                                <span class="font-bold text-xl text-orange-500 mb-1">BRI</span>
+                                <span class="text-sm text-gray-400">Bank Rakyat Indonesia</span>
+                            </div>
+                            <div class="bg-gray-800 p-4 rounded-lg border border-gray-700 flex flex-col justify-center items-center">
+                                <span class="font-bold text-xl text-teal-500 mb-1">BSI</span>
+                                <span class="text-sm text-gray-400">Bank Syariah Indonesia</span>
+                            </div>
+                            <div class="bg-gray-800 p-4 rounded-lg border border-gray-700 flex flex-col justify-center items-center">
+                                <span class="font-bold text-xl text-yellow-500 mb-1">BJB</span>
+                                <span class="text-sm text-gray-400">Bank Pembangunan Daerah Jabar Banten</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-black text-gray-400 py-6 text-center text-sm">
+        <p>&copy; 2026 iPurStore. Jl. Haji Zaenal Mustofa No. 26. All rights reserved.</p>
+    </footer>
+
+    <div id="order-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-black bg-opacity-70 backdrop-blur-sm px-4 py-6">
+        <div class="bg-white rounded-2xl w-full max-w-2xl max-h-full overflow-y-auto shadow-2xl transform transition-all relative">
+            
+            <!-- Tombol Tutup -->
+            <button id="close-modal" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center transition">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <div class="p-6 md:p-8">
+                <h3 class="text-2xl font-bold text-gray-900 mb-2 border-b pb-4">Detail & Pemesanan</h3>
+                
+                <!-- Info Produk Terpilih -->
+                <div class="flex flex-col sm:flex-row gap-4 mt-6 mb-6 bg-gray-50 p-4 rounded-xl border border-gray-100">
+                    <img id="modal-img" src="" alt="iPhone" class="w-full sm:w-1/3 h-32 object-cover rounded-lg bg-gray-200">
+                    <div class="flex flex-col justify-center">
+                        <div id="modal-condition" class="text-xs font-bold text-brand-600 bg-brand-100 px-2 py-1 rounded w-max mb-2">Baru</div>
+                        <h4 id="modal-title" class="text-xl font-bold text-gray-800 mb-1">Nama iPhone</h4>
+                        <p id="modal-specs" class="text-sm text-gray-500 mb-2">Spesifikasi...</p>
+                        <p id="modal-price" class="text-2xl font-bold text-gray-900" data-raw-price="0">Rp 0</p>
+                    </div>
+                </div>
+
+                <!-- Formulir Data Diri -->
+                <div class="mb-6 bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
+                    <h4 class="font-semibold text-gray-800 mb-4 border-b pb-2 flex items-center gap-2">
+                        <i class="fas fa-address-card text-brand-500"></i> Data Pemesan
+                    </h4>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Nama Lengkap <span class="text-red-500">*</span></label>
+                            <input type="text" id="cust-name" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-brand-500 transition" placeholder="Masukkan nama Anda">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">No. WhatsApp <span class="text-red-500">*</span></label>
+                            <input type="tel" id="cust-phone" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-brand-500 transition" placeholder="Contoh: 08123456789">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Alamat Lengkap <span class="text-red-500">*</span></label>
+                            <textarea id="cust-address" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-brand-500 transition" placeholder="Alamat domisili atau pengiriman"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Opsi Pembayaran -->
+                <div class="mb-6">
+                    <h4 class="font-semibold text-gray-800 mb-3">Pilih Tipe Pembayaran:</h4>
+                    <div class="flex gap-4">
+                        <label class="flex-1 cursor-pointer">
+                            <input type="radio" name="payment_type" value="cash" class="peer sr-only" checked>
+                            <div class="p-3 border rounded-lg text-center font-medium text-gray-600 peer-checked:border-brand-500 peer-checked:bg-brand-50 peer-checked:text-brand-700 transition">
+                                Tunai (Cash)
+                            </div>
+                        </label>
+                        <label class="flex-1 cursor-pointer">
+                            <input type="radio" name="payment_type" value="credit" class="peer sr-only">
+                            <div class="p-3 border rounded-lg text-center font-medium text-gray-600 peer-checked:border-brand-500 peer-checked:bg-brand-50 peer-checked:text-brand-700 transition">
+                                Kredit (Angsuran)
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Simulasi Kredit (Hidden by default) -->
+                <div id="simulation-panel" class="hidden bg-blue-50 border border-blue-100 p-5 rounded-xl mb-6">
+                    <h4 class="font-semibold text-blue-900 mb-4 flex items-center gap-2">
+                        <i class="fas fa-calculator text-blue-500"></i> Simulasi Angsuran
+                    </h4>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Uang Muka (DP) - Rp</label>
+                            <input type="number" id="sim-dp" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500" placeholder="Minimal 10% dari harga">
+                            <p id="dp-warning" class="text-xs text-red-500 mt-1 hidden">DP minimal 10% dari harga.</p>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Tenor (Bulan)</label>
+                            <select id="sim-tenor" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500">
+                                <option value="11">11 Bulan</option>
+                                <option value="17">17 Bulan</option>
+                                <option value="23">23 Bulan</option>
+                                <option value="35">35 Bulan</option>
+                            </select>
+                        </div>
+
+                        <div class="pt-4 border-t border-blue-200">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="text-sm text-gray-600">Pokok Hutang:</span>
+                                <span id="sim-pokok" class="font-medium text-gray-800">Rp 0</span>
+                            </div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm text-gray-600">Bunga Estimasi (1.5%/bln):</span>
+                                <span id="sim-bunga" class="font-medium text-gray-800">Rp 0</span>
+                            </div>
+                            <div class="flex justify-between items-center bg-blue-100 p-3 rounded-lg mt-3">
+                                <span class="font-bold text-blue-900">Angsuran / Bulan:</span>
+                                <span id="sim-angsuran" class="text-xl font-bold text-blue-900">Rp 0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Aksi -->
+                <p id="form-error" class="hidden text-red-500 text-sm text-center mb-3 font-medium bg-red-50 py-2 rounded-lg border border-red-100"><i class="fas fa-exclamation-circle mr-1"></i> Mohon lengkapi Data Pemesan di atas terlebih dahulu.</p>
+                <button id="btn-order-wa" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-4 rounded-xl flex items-center justify-center gap-3 transition shadow-lg mb-3">
+                    <i class="fab fa-whatsapp text-xl"></i> Pesan Via WhatsApp (087815133828)
+                </button>
+                <p class="text-xs text-center text-gray-500">Pembayaran dapat ditransfer ke Bank BRI, BSI, BCA, atau BJB setelah konfirmasi ketersediaan unit melalui WhatsApp.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data Produk Default (Simulasi Database)
+        let products = [
+            {
+                id: 17,
+                name: "iPhone 17 Pro Max",
+                price: 29999000,
+                condition: "Baru",
+                specs: "256GB, Silver Titanium, iBox",
+                image: "1000086715.jpg"
+            },
+            {
+                id: 1,
+                name: "iPhone 16 Pro Max",
+                price: 24999000,
+                condition: "Baru",
+                specs: "256GB, Natural Titanium, iBox",
+                image: "https://images.unsplash.com/photo-1695048133142-1a20484d2569?q=80&w=400&h=300&fit=crop"
+            },
+            {
+                id: 2,
+                name: "iPhone 16 Pro",
+                price: 21999000,
+                condition: "Baru",
+                specs: "128GB, White Titanium, iBox",
+                image: "https://images.unsplash.com/photo-1696446701796-da61225697cc?q=80&w=400&h=300&fit=crop"
+            },
+            {
+                id: 3,
+                name: "iPhone 16",
+                price: 15999000,
+                condition: "Baru",
+                specs: "128GB, Blue, iBox",
+                image: "1000086718.jpg"
+            },
+            {
+                id: 4,
+                name: "iPhone 15 Pro Max",
+                price: 22999000,
+                condition: "Baru",
+                specs: "256GB, Blue Titanium, iBox",
+                image: "https://images.unsplash.com/photo-1696446700622-c36ae3eb1a47?q=80&w=400&h=300&fit=crop"
+            },
+            {
+                id: 5,
+                name: "iPhone 15 Pro",
+                price: 18999000,
+                condition: "Baru",
+                specs: "128GB, Black Titanium, iBox",
+                image: "https://images.unsplash.com/photo-1697523287019-33e1d13f9c6d?q=80&w=400&h=300&fit=crop"
+            },
+            {
+                id: 6,
+                name: "iPhone 15",
+                price: 11989000, // Harga sesuai permintaan sebelumnya
+                condition: "Baru",
+                specs: "128GB, Pink, iBox",
+                image: "1000086721.jpg"
+            },
+            {
+                id: 7,
+                name: "iPhone 14 Pro Max",
+                price: 19499000,
+                condition: "Bekas (Mulus)",
+                specs: "256GB, Deep Purple, iBox",
+                image: "https://images.unsplash.com/photo-1678911820864-e4c6696eb41c?q=80&w=400&h=300&fit=crop"
+            },
+            {
+                id: 8,
+                name: "iPhone 14 Pro",
+                price: 17499000,
+                condition: "Baru",
+                specs: "128GB, Space Black, iBox",
+                image: "https://images.unsplash.com/photo-1662996253459-b1c410313045?q=80&w=400&h=300&fit=crop"
+            },
+            {
+                id: 9,
+                name: "iPhone 14",
+                price: 11999000,
+                condition: "Baru",
+                specs: "128GB, Blue, iBox",
+                image: "1000086742.jpg"
+            },
+            {
+                id: 10,
+                name: "iPhone 13",
+                price: 9999000,
+                condition: "Baru",
+                specs: "128GB, White, iBox",
+                image: "1000086736.jpg"
+            },
+            {
+                id: 11,
+                name: "iPhone 12",
+                price: 8499000,
+                condition: "Baru",
+                specs: "128GB, Blue, iBox",
+                image: "1000086730.jpg"
+            },
+            {
+                id: 12,
+                name: "iPhone 11",
+                price: 5999000,
+                condition: "Baru",
+                specs: "64GB, White, iBox",
+                image: "1000086724.jpg"
+            },
+            {
+                id: 13,
+                name: "iPhone SE (3rd Gen)",
+                price: 7499000,
+                condition: "Baru",
+                specs: "64GB, White, iBox",
+                image: "1000086746.jpg"
+            },
+            {
+                id: 14,
+                name: "iPhone XR",
+                price: 2500000,
+                condition: "Bekas (Mulus)",
+                specs: "64GB, White, iBox",
+                image: "1000086727.jpg"
+            },
+            {
+                id: 15,
+                name: "iPhone XS",
+                price: 3499000,
+                condition: "Bekas (Mulus)",
+                specs: "64GB, Gold, iBox",
+                image: "1000086733.jpg"
+            },
+            {
+                id: 16,
+                name: "iPhone 18 Pro Max",
+                price: 41989000,
+                condition: "Baru",
+                specs: "1TB, Burgundy, iBox",
+                image: "1000086739.jpg"
+            }
+        ];
+
+        // Konstanta
+        const WA_NUMBER = "6287815133828";
+        const BUNGA_PER_BULAN = 0.015; // 1.5% estimasi bunga per bulan
+
+        // Utilitas Format Rupiah
+        const formatRupiah = (number) => {
+            return new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            }).format(number);
+        };
+
+        // DOM Elements
+        const productGrid = document.getElementById('product-grid');
+        const formAddProduct = document.getElementById('add-product-form');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        // Modal Elements
+        const modal = document.getElementById('order-modal');
+        const closeModalBtn = document.getElementById('close-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalImg = document.getElementById('modal-img');
+        const modalSpecs = document.getElementById('modal-specs');
+        const modalPrice = document.getElementById('modal-price');
+        const modalCondition = document.getElementById('modal-condition');
+        const btnOrderWa = document.getElementById('btn-order-wa');
+        const paymentRadios = document.querySelectorAll('input[name="payment_type"]');
+        const simulationPanel = document.getElementById('simulation-panel');
+        
+        // Form Pemesan
+        const custName = document.getElementById('cust-name');
+        const custPhone = document.getElementById('cust-phone');
+        const custAddress = document.getElementById('cust-address');
+        const formError = document.getElementById('form-error');
+
+        // Simulation Inputs
+        const inputDp = document.getElementById('sim-dp');
+        const selectTenor = document.getElementById('sim-tenor');
+        const txtPokok = document.getElementById('sim-pokok');
+        const txtBunga = document.getElementById('sim-bunga');
+        const txtAngsuran = document.getElementById('sim-angsuran');
+        const dpWarning = document.getElementById('dp-warning');
+
+        // State Modal Aktif
+        let currentSelectedProduct = null;
+
+        function renderProducts() {
+            productGrid.innerHTML = '';
+            
+            if(products.length === 0) {
+                productGrid.innerHTML = `<div class="col-span-full text-center text-gray-500 py-10">Belum ada produk di etalase.</div>`;
+                return;
+            }
+
+            products.forEach(product => {
+                // Tentukan warna badge berdasarkan kondisi
+                let conditionColor = 'bg-green-100 text-green-700';
+                if(product.condition.includes('Bekas')) {
+                    conditionColor = 'bg-yellow-100 text-yellow-700';
+                }
+
+                const card = document.createElement('div');
+                card.className = 'bg-white rounded-xl shadow-sm hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-gray-100 flex flex-col h-full';
+                
+                card.innerHTML = `
+                    <div class="relative h-48 bg-gray-200">
+                        <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover">
+                        <div class="absolute top-3 right-3 ${conditionColor} text-xs font-bold px-2 py-1 rounded shadow-sm">
+                            ${product.condition}
+                        </div>
+                    </div>
+                    <div class="p-5 flex-grow flex flex-col">
+                        <h3 class="text-xl font-bold text-gray-900 mb-1 line-clamp-1">${product.name}</h3>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2 h-10">${product.specs}</p>
+                        <div class="mt-auto">
+                            <p class="text-brand-600 font-bold text-xl mb-4">${formatRupiah(product.price)}</p>
+                            <button onclick="openModal(${product.id})" class="w-full bg-gray-900 hover:bg-gray-800 text-white font-medium py-2 px-4 rounded-lg transition duration-200 text-sm flex justify-center items-center gap-2">
+                                <i class="fas fa-shopping-cart"></i> Pesan / Simulasi
+                            </button>
+                        </div>
+                    </div>
+                `;
+                productGrid.appendChild(card);
+            });
+        }
+
+        formAddProduct.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('p-name').value;
+            const price = parseFloat(document.getElementById('p-price').value);
+            const condition = document.getElementById('p-condition').value;
+            const specs = document.getElementById('p-specs').value;
+            let image = document.getElementById('p-image').value;
+
+            // Gunakan placeholder jika gambar kosong
+            if (!image) {
+                const encodeName = encodeURIComponent(name.substring(0, 15));
+                const bgColor = condition === 'Baru' ? '22c55e' : 'f59e0b';
+                image = `https://placehold.co/400x300/${bgColor}/ffffff?text=${encodeName}`;
+            }
+
+            const newProduct = {
+                id: Date.now(), // Generate unique ID
+                name,
+                price,
+                condition,
+                specs,
+                image
+            };
+
+            products.push(newProduct);
+            renderProducts();
+
+            // Tampilkan pesan sukses & reset form
+            const successMsg = document.getElementById('add-success-msg');
+            successMsg.classList.remove('hidden');
+            formAddProduct.reset();
+
+            // Scroll perlahan ke etalase
+            setTimeout(() => {
+                successMsg.classList.add('hidden');
+                document.getElementById('etalase').scrollIntoView({ behavior: 'smooth' });
+            }, 2000);
+        });
+
+        
+        function openModal(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            
+            currentSelectedProduct = product;
+            
+            // Set isi modal
+            modalTitle.textContent = product.name;
+            modalImg.src = product.image;
+            modalSpecs.textContent = product.specs;
+            modalPrice.textContent = formatRupiah(product.price);
+            modalPrice.dataset.rawPrice = product.price;
+            modalCondition.textContent = product.condition;
+
+            // Set warna kondisi di modal
+            if(product.condition.includes('Bekas')) {
+                modalCondition.className = 'text-xs font-bold text-yellow-700 bg-yellow-100 px-2 py-1 rounded w-max mb-2';
+            } else {
+                modalCondition.className = 'text-xs font-bold text-brand-700 bg-brand-100 px-2 py-1 rounded w-max mb-2';
+            }
+
+            // Reset Form Modal
+            document.querySelector('input[name="payment_type"][value="cash"]').checked = true;
+            simulationPanel.classList.add('hidden');
+            inputDp.value = (product.price * 0.1).toFixed(0); // Default DP 10%
+            selectTenor.value = "11"; // Default Tenor
+            dpWarning.classList.add('hidden');
+            
+            calculateSimulation(); // Kalkulasi awal meskipun hidden
+
+            // Tampilkan modal
+            modal.classList.remove('hidden');
+            document.body.classList.add('modal-active');
+        }
+
+        function closeModal() {
+            modal.classList.add('hidden');
+            document.body.classList.remove('modal-active');
+            currentSelectedProduct = null;
+            // Reset Data Pemesan
+            custName.value = '';
+            custPhone.value = '';
+            custAddress.value = '';
+            formError.classList.add('hidden');
+        }
+
+        closeModalBtn.addEventListener('click', closeModal);
+        
+        // Tutup modal jika klik background gelap
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Toggle Simulasi Panel
+        paymentRadios.forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                if (e.target.value === 'credit') {
+                    simulationPanel.classList.remove('hidden');
+                    calculateSimulation();
+                } else {
+                    simulationPanel.classList.add('hidden');
+                }
+            });
+        });
+
+        // Kalkulasi Kredit
+        function calculateSimulation() {
+            if (!currentSelectedProduct) return;
+            
+            const harga = currentSelectedProduct.price;
+            const minDp = harga * 0.1; // Minimal DP 10%
+            let dp = parseFloat(inputDp.value) || 0;
+            const tenor = parseInt(selectTenor.value);
+
+            if (dp < minDp) {
+                dpWarning.classList.remove('hidden');
+                dpWarning.textContent = `DP minimal 10% (Rp ${minDp.toLocaleString('id-ID')})`;
+                // Kita tidak memblokir kalkulasi, tapi beri peringatan
+            } else {
+                dpWarning.classList.add('hidden');
+            }
+
+            const pokokHutang = Math.max(0, harga - dp);
+            
+            // Rumus Sederhana Bunga Flat
+            const totalBunga = pokokHutang * BUNGA_PER_BULAN * tenor;
+            const totalHutang = pokokHutang + totalBunga;
+            const angsuranPerBulan = tenor > 0 ? (totalHutang / tenor) : 0;
+
+            txtPokok.textContent = formatRupiah(pokokHutang);
+            txtBunga.textContent = formatRupiah(totalBunga);
+            txtAngsuran.textContent = formatRupiah(angsuranPerBulan);
+        }
+
+        // Update kalkulasi saat input DP atau Tenor berubah
+        inputDp.addEventListener('input', calculateSimulation);
+        selectTenor.addEventListener('change', calculateSimulation);
+
+        
+        btnOrderWa.addEventListener('click', () => {
+            if (!currentSelectedProduct) return;
+
+            // Validasi Form
+            if (!custName.value.trim() || !custPhone.value.trim() || !custAddress.value.trim()) {
+                formError.classList.remove('hidden');
+                // Scroll ke pesan error
+                formError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return;
+            }
+            formError.classList.add('hidden');
+            
+            const p = currentSelectedProduct;
+            const isKredit = document.querySelector('input[name="payment_type"]:checked').value === 'credit';
+            
+            let message = `Halo iPurStore,\n\nSaya ingin memesan unit dengan detail berikut:\n\n*Data Pemesan*\n`;
+            message += `- Nama: ${custName.value.trim()}\n`;
+            message += `- No. WhatsApp: ${custPhone.value.trim()}\n`;
+            message += `- Alamat: ${custAddress.value.trim()}\n\n`;
+
+            message += `*Detail Unit*\n`;
+            message += `- Unit: ${p.name}\n`;
+            message += `- Spesifikasi: ${p.specs}\n`;
+            message += `- Kondisi: ${p.condition}\n`;
+            message += `- Harga: ${formatRupiah(p.price)}\n\n`;
+
+            if (isKredit) {
+                const dp = parseFloat(inputDp.value) || 0;
+                const tenor = selectTenor.value;
+                const angsuran = txtAngsuran.textContent;
+                
+                message += `*Rencana Pembayaran: KREDIT*\n`;
+                message += `- Rencana DP: ${formatRupiah(dp)}\n`;
+                message += `- Tenor: ${tenor} Bulan\n`;
+                message += `- Estimasi Angsuran: ${angsuran} / bulan\n\n`;
+            } else {
+                message += `*Rencana Pembayaran: CASH*\n\n`;
+            }
+
+            message += `Mohon info untuk ketersediaan unit ini. Rencana saya akan mengunjungi toko di Jl. Haji Zaenal Mustofa No. 26 atau melakukan pembayaran transfer antar bank.\n\nTerima kasih.`;
+
+            const encodedMessage = encodeURIComponent(message);
+            const waUrl = `https://wa.me/${WA_NUMBER}?text=${encodedMessage}`;
+            
+            window.open(waUrl, '_blank');
+        });
+
+        // Mobile Menu Toggle
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Inisialisasi awal
+        window.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+        });
+
+    </script>
+</body>
+</html>
+```
